@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/aba_samuel', function () {
     return redirect('admin/dashboard');
 });
