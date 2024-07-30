@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Rules\Base64Image;
 use Illuminate\Foundation\Http\FormRequest;
 
-class BlogPostRequest extends FormRequest
+class GalleryPostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,10 +26,8 @@ class BlogPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:5',
-            'description' => 'required|min:5',
-            'blog_posted' => 'required',
-            'image' => ['nullable', new Base64Image],
+            'image_posted' => 'required',
+            'image' => ['required', new Base64Image],
         ];
     }
 
@@ -53,7 +51,7 @@ class BlogPostRequest extends FormRequest
     public function messages()
     {
         return [
-            "image_name" => "Uploaded image is not valid"
+            //
         ];
     }
 }

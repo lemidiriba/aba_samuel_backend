@@ -24,7 +24,7 @@ class GalleryPostFactory extends Factory
     public function definition()
     {
         return [
-            'image_name' => $this->faker->word,
+            'image' => $this->faker->word,
             'created_by_id' => User::factory(),
         ];
     }

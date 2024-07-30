@@ -26,6 +26,18 @@ class BlogPost extends Model
     ];
 
 
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'integer',
+        'created_by_id' => 'integer',
+    ];
+
+
     // Handle image upload before saving the model
     protected static function boot()
     {
@@ -71,18 +83,7 @@ class BlogPost extends Model
             // 3. Save the path to the database
             $this->attributes[$attribute_name] = $destination_path . '/' . $filename;
         }
-
     }
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'id' => 'integer',
-        'created_by_id' => 'integer',
-    ];
 
     public function createdBy()
     {

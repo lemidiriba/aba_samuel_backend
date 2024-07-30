@@ -16,4 +16,8 @@
 </li>
 
 
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('blog-post') }}'><i class='nav-icon la la-question'></i> Blog posts</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('blog-post') }}'><i class='nav-icon las la-blog'></i> Blog posts</a></li>
+
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('gallery-post') }}'><i class="nav-icon las la-photo-video"></i></i> Gallery posts</a></li>
+
+

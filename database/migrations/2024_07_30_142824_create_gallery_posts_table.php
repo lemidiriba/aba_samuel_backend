@@ -17,7 +17,7 @@ class CreateGalleryPostsTable extends Migration
 
         Schema::create('gallery_posts', function (Blueprint $table) {
             $table->id();
-            $table->string('image_name');
+            $table->string('image');
             $table->unsignedBigInteger('created_by_id');
             $table->foreign('created_by_id')->references('id')->on('users');
             $table->integer('image_posted');

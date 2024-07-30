@@ -26,7 +26,7 @@ class BlogPostFactory extends Factory
         return [
             'title' => $this->faker->sentence(4),
             'description' => $this->faker->text,
-            'image_name' => $this->faker->word,
+            'image' => $this->faker->word,
             'created_by_id' => User::factory(),
         ];
     }
