@@ -1,12 +1,11 @@
 created:
-    - database/factories/GalleryPostFactory.php
-    - database/factories/BlogPostFactory.php
-    - database/migrations/2024_07_30_142824_create_gallery_posts_table.php
-    - database/migrations/2024_07_30_142825_create_blog_posts_table.php
-    - app/Models/GalleryPost.php
-    - app/Models/BlogPost.php
+    - database/factories/DonationFactory.php
+    - database/migrations/2024_07_30_175849_create_donations_table.php
+    - app/Models/Donation.php
 models:
     User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string:100 nullable' }
     WebService: { name: string, address: string, description: text, image_name: string, created_by_id: 'unsignedBigInteger foreign:users.id' }
     GalleryPost: { image_name: string, created_by_id: 'unsignedBigInteger foreign:users.id' }
     BlogPost: { title: string, description: text, image_name: 'string nullable', created_by_id: 'unsignedBigInteger foreign:users.id' }
+    Gift: { full_name: string, christian_name: string, amount: integer, completed: integer, created_by_id: 'unsignedBigInteger foreign:users.id' }
+    Donation: { full_name: string, christian_name: string, amount: integer, completed: integer, created_by_id: 'unsignedBigInteger foreign:users.id' }

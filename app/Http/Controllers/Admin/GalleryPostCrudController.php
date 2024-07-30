@@ -52,7 +52,7 @@ class GalleryPostCrudController extends CrudController
             'label' => 'Created By',
             'type' => 'text', // Adjust the type as needed
         ]);
-        $this->crud->addColumn([   // Switch
+        $this->crud->addColumn([
             'name'  => 'image_posted',
             'type'  => 'radio',
             'label'    => 'Image Status',
@@ -92,7 +92,7 @@ class GalleryPostCrudController extends CrudController
             'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
             'disk' => 'public'
         ]);
-        $this->crud->addField([   // Switch
+        $this->crud->addField([
             'name'  => 'image_posted',
             'type'  => 'radio',
             'label'    => 'Image Status',

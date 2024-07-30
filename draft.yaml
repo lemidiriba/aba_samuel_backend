@@ -1,9 +1,7 @@
 models:
-  GalleryPost:
-    image_name: string
-    created_by_id: unsignedBigInteger foreign:users.id
-  BlogPost:
-    title: string
-    description: text
-    image_name: string nullable
+  Donation:
+    full_name: string
+    christian_name: string
+    amount: integer
+    completed: integer
     created_by_id: unsignedBigInteger foreign:users.id

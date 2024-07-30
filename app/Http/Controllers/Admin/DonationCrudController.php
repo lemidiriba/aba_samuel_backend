@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\BlogPostRequest;
-use App\Http\Requests\StoreBlogPostRequest;
+use App\Http\Requests\DonationRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Illuminate\Support\Facades\Auth;
 
 /**
- * Class BlogPostCrudController
+ * Class DonationCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class BlogPostCrudController extends CrudController
+class DonationCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+
+
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -28,9 +28,9 @@ class BlogPostCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\BlogPost::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/blog-post');
-        CRUD::setEntityNameStrings('blog post', 'blog posts');
+        CRUD::setModel(\App\Models\Donation::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/donation');
+        CRUD::setEntityNameStrings('donation', 'donations');
     }
 
     /**
@@ -41,35 +41,26 @@ class BlogPostCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('title');
-        CRUD::column('description');
+        CRUD::column('full_name');
+        CRUD::column('christian_name');
+        CRUD::column('amount');
         $this->crud->addColumn([
-            'name' => 'image',
-            'type' => 'image',
-            'label' => 'Image',
-            'height' => '100px', // Set the height for the image
-            'width' => '100px', // Set the width for the image
-            'prefix' => 'storage/', // Path prefix if you're using a different storage disk
+            'name'  => 'completed',
+            'type'  => 'radio',
+            'label'    => 'Completed Status',
+            'options'     => [
+                0 => "No",
+                1 => "Yes",
+            ],
         ]);
+
         $this->crud->addColumn([
-            'name' => 'createdBy.name', // Assuming a one-to-one relationship
-            'label' => 'Created By',
+            'name' => 'approvedBy.name', // Assuming a one-to-one relationship
+            'label' => 'Approved By',
             'type' => 'text', // Adjust the type as needed
         ]);
-        $this->crud->addColumn([
-            'name'  => 'blog_posted',
-            'type'  => 'radio',
-            'label'    => 'Blog Status',
 
-            'options'     => [
-                0 => "Draft",
-                1 => "Published",
-                2 => "Hidden"
-            ],
-
-        ]);
-
-        CRUD::removeButtonFromStack('show', 'line');
+        $this->crud->removeButtonFromStack('show','line');
 
 
         /**
@@ -87,32 +78,23 @@ class BlogPostCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(BlogPostRequest::class);
+        CRUD::setValidation(DonationRequest::class);
 
-        CRUD::field('title');
-        CRUD::addField(['name' => 'description', 'type'=> 'textarea']);
-        // Image field
+        CRUD::field('full_name');
+        CRUD::field('christian_name');
+        $this->crud->addField(['name'=>'amount', 'type'=> 'number', 'label' => 'Amount (Birr)']);
         $this->crud->addField([
-            'name' => 'image',
-            'type' => 'image',
-            'label' => 'Image',
-            'upload' => true,
-            'crop' => true, // set to true to allow cropping, false to disable
-            'aspect_ratio' => 1, // omit or set to 0 to allow any aspect ratio
-            'disk' => 'public'
-        ]);
-        $this->crud->addField([
-            'name'  => 'blog_posted',
+            'name'  => 'completed',
             'type'  => 'radio',
-            'label'    => 'Blog Status',
+            'label'    => 'Completed Status',
 
             'options'     => [
-                0 => "Draft",
-                1 => "Published",
-                2 => "Hidden"
+                0 => "No",
+                1 => "Yes",
             ],
 
         ]);
+
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -120,8 +102,6 @@ class BlogPostCrudController extends CrudController
          * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
     }
-
-
 
     /**
      * Define what happens when the Update operation is loaded.
@@ -131,6 +111,23 @@ class BlogPostCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        CRUD::setValidation(DonationRequest::class);
+
+        CRUD::field('full_name');
+        CRUD::field('christian_name');
+        $this->crud->addField(['name' => 'amount', 'type' => 'number', 'label' => 'Amount (Birr)']);
+        $this->crud->addField([
+            'name'  => 'completed',
+            'type'  => 'radio',
+            'label'    => 'Completed Status',
+
+            'options'     => [
+                0 => "No",
+                1 => "Yes",
+            ],
+
+        ]);
+        $this->crud->addField(['name' => 'approved_by_id', 'default' => backpack_user()->id, 'type' => 'hidden']);
+
     }
 }
