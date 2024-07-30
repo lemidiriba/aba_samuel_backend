@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWebServicesTable extends Migration
+class CreateBlogPostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,14 +15,15 @@ class CreateWebServicesTable extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('web_services', function (Blueprint $table) {
+        Schema::create('blog_posts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('address');
+            $table->string('title');
             $table->text('description');
-            $table->string('image_name');
+            $table->string('image')->nullable();
             $table->unsignedBigInteger('created_by_id');
             $table->foreign('created_by_id')->references('id')->on('users');
+            $table->integer('blog_posted');
+
             $table->timestamps();
         });
 
@@ -36,6 +37,6 @@ class CreateWebServicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('web_services');
+        Schema::dropIfExists('blog_posts');
     }
 }

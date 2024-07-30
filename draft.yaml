@@ -1,7 +1,9 @@
 models:
-  WebService:
-    name: string
-    address: string
-    description: text
+  GalleryPost:
     image_name: string
-    created_by_id: unsignedBigInteger foreign:users.id 
+    created_by_id: unsignedBigInteger foreign:users.id
+  BlogPost:
+    title: string
+    description: text
+    image_name: string nullable
+    created_by_id: unsignedBigInteger foreign:users.id
